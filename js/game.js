@@ -39,7 +39,9 @@ const level = urlParams.get('game'); // זה מחלץ את המספר שמופי
 if (level === '1') {
      maxSeconds = 5;
 }
-
+/**
+ * @description פונקציה שמעדכנת את השעון כל שנייה ומטפלת בסיום המשחק כאשר הזמן מגיע למקסימום
+ */
 const updateClock = () => {
     secondsElapsed++;
     selectors.timer.textContent = `Time: ${secondsElapsed} seconds`;
