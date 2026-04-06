@@ -1,20 +1,19 @@
-import { peopleToGuess,personToGuess } from "./data.js";
-
+import { peopleToGuess,personToGuess,questions } from "./data.js";
 const selectors = {
     containerr: document.querySelector("#container"),
-    rand: document.querySelector("#randerImg"),
+ //   rand: document.querySelector("#randerImg"),
     timer: document.querySelector("#seconds"),
 
     modal: document.querySelector("#endGameModal"),
     modalTime: document.querySelector("#modalTimeText"),
-    modalImage: document.querySelector("#revealedPersonContainer")
+    modalImage: document.querySelector("#revealedPersonContainer"),
+    questions: document.querySelector("#questions")
 };
 
-const imagee=document.createElement("img");
-imagee.src=personToGuess.image;
-imagee.id=personToGuess.id;
-selectors.rand.appendChild(imagee);
-
+// const imagee=document.createElement("img");
+// imagee.src=personToGuess.image;
+// imagee.id=personToGuess.id;
+// selectors.rand.appendChild(imagee);
 
  const renderPeople = () => {
     for(const personn of peopleToGuess){
@@ -50,7 +49,6 @@ if (secondsElapsed == maxSeconds) {
         handleGameOver();
 }
 }
-
 if (level != null){
      timerInterval = setInterval(updateClock, 1000);
 }
@@ -96,5 +94,24 @@ const handleGameOver = () => {
     }, 4000);
 };
 
+/**
+ * @function renderQuestions
+ * @description Dynamically creates and appends question elements to the DOM with click event listeners.
+ * @returns {void}
+ */
+const renderQuestions = () => {
+questions.forEach((q) => {
+const questionDiv = document.createElement("div");
+questionDiv.id = `q-${q.id}`;
+questionDiv.textContent = q.text;
+questionDiv.dataset.property = q.property; //זו הדרך להוסיף עוד דברים לאוביקט
+questionDiv.classList.add("question-item");
+questionDiv.addEventListener("click", () => {
+  checkAnswer(q.property, questionDiv);//אני שולחת גם את הדיב שיצרתי כדי לצבוע שאלה שכבר שאלו
+});
+selectors.questions.appendChild(questionDiv);
+});
+}
+renderQuestions();
 
 
