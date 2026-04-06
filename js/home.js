@@ -3,7 +3,9 @@ const selectors = {
  headd:document.querySelector('h2'),
  instructionsbtn:document.querySelector('#instructions'),
  modal: document.querySelector('#instructionsModal'),
-    closeBtn: document.querySelector('#closeModal')
+closeBtn: document.querySelector('#closeModal'),
+ game1Btn: document.querySelector('#game1'),
+game2Btn: document.querySelector('#game2')
 };
 
 /**
@@ -27,3 +29,10 @@ selectors.instructionsbtn.addEventListener('click', () => {
 selectors.closeBtn.addEventListener('click', () => {
     selectors.modal.style.display = 'none';
 });
+
+selectors.game1Btn.addEventListener('click',()=>{
+   location.href =`../game.html?game=1`; 
+})
+selectors.game2Btn.addEventListener('click',()=>{
+   location.href =`../game.html?game=2`; 
+})
