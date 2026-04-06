@@ -25,9 +25,15 @@ selectors.containerr.appendChild(imagee);
 imagee.id=personn.id;
     }  }
 renderPeople();  
+/** * @type {number} - מזהה האינטרוול של השעון, משמש לעצירת השעון בסיום המשחק
+ */
 let timerInterval;
+
+/** @type {number} - כמות השניות שעברו מתחילת המשחק */
 let secondsElapsed = 0;
-let maxSeconds = 35; // אפשר לשנות לפי רמת קושי
+
+/** @type {number} - זמן המקסימום למשחק (משתנה לפי רמת הקושי) */
+let maxSeconds = 35;
 
 const urlParams = new URLSearchParams(window.location.search);
 const level = urlParams.get('game'); // זה מחלץ את המספר שמופיע אחרי ה- ?game=
