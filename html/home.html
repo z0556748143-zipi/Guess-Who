@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZIPI GAMES</title>
+    <link rel="stylesheet" href="../css/home.css">
      <link rel="icon" type="image" href="../favicon.png">
    <script src="../js/home.js" defer></script>
 </head>
 <body>
+    <h2></h2>
     <button id="homebutton">Home</button>
+    <button id="instructions">Instructions</button>
+
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <h3>Instructions how to play Guess Who</h3>
+            <p>First, enter your name to start the game. Your goal is to identify the secret character 
+        by clicking on different people to reveal their unique traits. Use the clues wisely 
+        and try to guess the correct person in the fewest moves possible to reach the high-score leaderboard!</p>
+            <button id="closeModal">❌</button>
+        </div>
+    </div>
 </body>
 </html>
