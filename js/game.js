@@ -25,9 +25,18 @@ selectors.containerr.appendChild(imagee);
 imagee.id=personn.id;
     }  }
 renderPeople();  
-
+let timerInterval;
 let secondsElapsed = 0;
-const maxSeconds = 35; // אפשר לשנות לפי רמת קושי
+let maxSeconds = 35; // אפשר לשנות לפי רמת קושי
+
+const urlParams = new URLSearchParams(window.location.search);
+const level = urlParams.get('game'); // זה מחלץ את המספר שמופיע אחרי ה- ?game=
+if (level === '1') {
+     maxSeconds = 15;
+}
+if (level != null){
+     timerInterval = setInterval(updateClock, 1000);
+}
 
 const updateClock = () => {
     secondsElapsed++;
