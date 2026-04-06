@@ -34,5 +34,5 @@ selectors.game1Btn.addEventListener('click',()=>{
    location.href =`../game.html?game=1`; 
 })
 selectors.game2Btn.addEventListener('click',()=>{
-   location.href =`../game.html?game=2`; 
+   location.href =`../html/game.html?game=2`; 
 })
