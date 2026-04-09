@@ -7,7 +7,10 @@ const selectors = {
     modal: document.querySelector("#endGameModal"),
     modalTime: document.querySelector("#modalTimeText"),
     modalImage: document.querySelector("#revealedPersonContainer"),
-    questions: document.querySelector("#questions")
+    questions: document.querySelector("#questions"),
+
+    modalName: document.querySelector("#nameOfSpesificTitle"),
+    modalNameContainer: document.querySelector("#nameOfSpesific")
 };
 
  const renderPeople = () => {
@@ -22,6 +25,12 @@ imagee.id=personn.id;
 imagee.classList.add("person-img");
 personBox.appendChild(imagee);
 selectors.containerr.appendChild(personBox);
+personBox.addEventListener("click",(e)=>{
+// אם כבר יש עליה איקס, אי אפשר לבחור בה
+    if (personBox.classList.contains("eliminated")) return;
+    const isWin = personn.id === personToGuess.id;
+    handleGameOver(isWin);
+})
 
     }  }
 renderPeople();  
@@ -59,10 +68,19 @@ if (level != null){
  * @description פונקציה המטפלת בסיום המשחק - עוצרת את השעון, מציגה מודל ומעבירה לדף שיאים
  * @returns {void}
  */
-const handleGameOver = () => {
+const handleGameOver = (isWin=null) => {
     // 1. עצירת השעון (שימוש ב-BOM ובתזמון פונקציות) [cite: 25, 27]
+
     clearInterval(timerInterval);
 
+    const modalTitle = document.querySelector("#modalTitle");
+    if (isWin === true) {
+        modalTitle.textContent = "🏆 YOU WIN! 🏆";
+    } else if (isWin === false) {
+        modalTitle.textContent = "❌ WRONG GUESS! ❌";  
+    }
+    else {
+        modalTitle.textContent = "⏰ TIME IS UP! ⏰";}  
     // 2. עדכון טקסט הזמן במודל בצורה בטוחה (textContent במקום innerHTML) [cite: 20, 46]
     selectors.modalTime.textContent = `Finished in ${secondsElapsed} seconds!`;
 
@@ -114,6 +132,7 @@ questionDiv.addEventListener("click", () => {
 selectors.questions.appendChild(questionDiv);
 });
 }
+
 renderQuestions();
 
 /**
