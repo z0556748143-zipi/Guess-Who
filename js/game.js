@@ -10,17 +10,19 @@ const selectors = {
     questions: document.querySelector("#questions")
 };
 
-// const imagee=document.createElement("img");
-// imagee.src=personToGuess.image;
-// imagee.id=personToGuess.id;
-// selectors.rand.appendChild(imagee);
-
  const renderPeople = () => {
     for(const personn of peopleToGuess){
+// 1. יוצרים "בית" (דיב) לדמות
+        const personBox = document.createElement("div");
+        personBox.classList.add("person-box");
+
 const imagee=document.createElement("img");
 imagee.src=personn.image;
-selectors.containerr.appendChild(imagee);
 imagee.id=personn.id;
+imagee.classList.add("person-img");
+personBox.appendChild(imagee);
+selectors.containerr.appendChild(personBox);
+
     }  }
 renderPeople();  
 /** * @type {number} - מזהה האינטרוול של השעון, משמש לעצירת השעון בסיום המשחק
@@ -113,5 +115,41 @@ selectors.questions.appendChild(questionDiv);
 });
 }
 renderQuestions();
+
+/**
+ * Description: This function checks if the selected property matches the hidden person's
+ *  data and updates the game board by marking non-matching characters.
+ * @param {String} property 
+ * @param {HTMLElement} questionDiv 
+ */
+const checkAnswer = (property, questionDiv) => {
+  const isCorrect = personToGuess[property];//זה בעצם אומר לי מה יש אצל הדמות
+  questionDiv.classList.add("question-asked");
+const allImages = document.querySelectorAll(".person-img");
+allImages.forEach((img) => {
+  treatOneCharacter(img, property, isCorrect);
+});
+}
+/**
+ * Description: Marks a single character with an X if it doesn't match the correct attribute.
+ * @param {HTMLImageElement} img 
+ * @param {String} property 
+ * @param {Boolean} isCorrect 
+ */
+const treatOneCharacter=(img, property, isCorrect) => {
+const characterData = peopleToGuess.find(p => p.id == img.id);
+// בדיקה 3 (החדשה!): האם כבר שמנו עליה איקס? (בודקים אם לאבא שלה כבר יש ילד עם קלאס x-overlay)
+  const alreadyEliminated = img.parentElement.querySelector(".x-overlay");
+if (characterData && characterData[property] !== isCorrect && !alreadyEliminated) {
+ 
+    const xImg = document.createElement("img");
+    xImg.src = "../img/image (10).png";
+    xImg.classList.add("x-overlay");
+
+    img.parentElement.classList.add("eliminated");
+
+    img.parentElement.appendChild(xImg); //זה ישים את האיקס הזה בתוך הדיב הגדול כלומר ילך לאבא שלו    
+}
+}
 
 

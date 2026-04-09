@@ -1,123 +1,138 @@
-/* סידור כללי של המסך */
+/* --- הגדרות בסיסיות --- */
 body {
     display: flex;
-    flex-direction: row-reverse; /* הופך את הסדר: ימין לשמאל */
-    justify-content: space-between; /* יוצר רווח מקסימלי בין שני הצדדים */
+    flex-direction: row-reverse; 
+    justify-content: space-between; 
     align-items: flex-start;
     padding: 40px;
     background-color: #f4f4f4;
     margin: 0;
+    font-family: sans-serif;
 }
 
-/* הצד של ה-25 תמונות (בימין) */
+/* --- אזור התמונות (ימין) --- */
 #container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 15px;
-    width: 70%; /* תופס את רוב הצד הימני */
+    width: 70%; 
 }
 
-/* הצד של התמונה המוגרלת (בשמאל) */
-#randerImg {
-    width: 25%; /* תופס את הצד השמאלי */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 4px dashed #ff8c00; /* מסגרת מקוקווקת שונה */
-    border-radius: 20px;
-    background: white;
-}
-
-/* עיצוב התמונות בתוך ה-container (הקטנות) */
-#container img {
+/* הבית של כל תמונה - העוגן של האיקס */
+.person-box {
+    position: relative; 
     width: 120px;
     height: 120px;
+}
+
+.person-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: top;
     border-radius: 10px;
     border: 2px solid #ddd;
-}
-
-/* עיצוב התמונה המוגרלת (הגדולה והשונה) */
-#randerImg img {
-    width: 200px; /* בולטת וגדולה! */
-    height: 200px;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    border: 5px solid #ff4500;
+    display: block;
 }
 
 
-/* -------------------------------------------------------- */
+/* --- האיקס של ננו בננה (חזק, בולט ואדום!) --- */
+.x-overlay {
+    position: absolute; /* צף מעל */
+    top: -10%; 
+    left: -10%;
+    width: 120%; /* גדול יותר מהתמונה בשביל הבולטות */
+    height: 120%;
+    
+    z-index: 10;
+    pointer-events: none; /* שלא יפריע ללחיצות */
+    
+    /* ---------------------------------------------------- */
+    /* ביטלנו את ה-drop-shadow שהוסיף את המסגרת המכוערת! */
+    filter: saturate(3) contrast(1.5); /* עכשיו אנחנו משתמשים רק בצבע וניגודיות חזקים */
+    /* ---------------------------------------------------- */
+    
+    /* מוודא שהאיקס יהיה אדום חזק ואטום (אבל הרקע שקוף לגמרי) */
+    opacity: 1; 
+    
+    /* שומר על ה"קסם" שמעלים את המשבצות המעצבנות מהקובץ */
+    mix-blend-mode: multiply; 
+    
+    /* אבטחה כפולה: מוודא שהדפדפן לא מוסיף שום רקע או צל אחר */
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
 
-/* --- תוספת: עיצוב חלונית סיום המשחק (Modal) --- */
 
-/* הרקע המטושטש שמכסה את כל המסך */
+
+
+
+
+
+/* מוודא שהדמות מאחורה לא דוהה ולא משתנה */
+.eliminated {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* --- אזור השאלות (שמאל) --- */
+#questions {
+    width: 25%; 
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.question-item {
+    background-color: #ffffff;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.question-item:hover {
+    background-color: #f0f0f0;
+    transform: translateX(-5px);
+}
+
+.question-asked {
+    background-color: #ffcccc !important;
+    color: #888;
+    pointer-events: none;
+    text-decoration: line-through;
+}
+
+/* --- מודל סיום משחק --- */
 .modal-overlay {
-    display: none; /* חבוי בהתחלה, ה-JS יהפוך ל-flex כשייגמר הזמן */
+    display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* שחור שקוף עמוק */
-    z-index: 1000; /* דואג שזה יהיה מעל כל התמונות */
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(10px); /* אפקט טשטוש יוקרתי למשחק מאחורה */
+    backdrop-filter: blur(8px);
 }
 
-/* הקופסה הלבנה המרכזית */
 .modal-content {
     background: white;
-    padding: 40px;
-    border-radius: 30px;
-    text-align: center;
-    max-width: 450px;
-    width: 90%;
-    border: 8px solid #ff4500; /* מסגרת כתומה בולטת */
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    animation: bounceIn 0.6s ease; /* אנימציה קטנה כשהוא נפתח */
-}
-
-/* אנימציה נחמדה לכניסה של המודל */
-@keyframes bounceIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    70% { transform: scale(1.05); }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-/* עיצוב התמונה של הדמות שסימי פספסה */
-#revealedPersonContainer img {
-    width: 180px;
-    height: 180px;
+    padding: 30px;
     border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    border: 6px solid #ff4500;
+}
+
+/* הגבלת התמונה במודל הסיום */
+#revealedPersonContainer img {
+    width: 150px !important;
+    height: 150px !important;
+    border-radius: 15px;
     object-fit: cover;
-    border: 5px solid #333;
-    margin: 20px 0;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* עיצוב הכותרת והטקסט בתוך המודל */
-#modalTitle {
-    font-family: 'Arial Black', sans-serif;
-    color: #333;
-    margin-top: 0;
-}
-
-#modalTimeText {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #ff4500;
-}
-
-.redirect-msg {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 25px;
-    font-style: italic;
+    margin: 15px 0;
 }
