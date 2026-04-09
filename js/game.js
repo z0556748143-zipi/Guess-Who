@@ -110,8 +110,9 @@ const handleGameOver = (isWin=null) => {
      */
     setTimeout(() => {
         // שימוש ב-BOM למעבר דף [cite: 25]
-        window.location.href = "siim.html";
-    }, 4000);
+        const userName = sessionStorage.getItem('username');
+        window.location.href = `siim.html?username=${userName}`;
+}, 4000);
 };
 
 /**
@@ -123,13 +124,22 @@ const renderQuestions = () => {
 questions.forEach((q) => {
 const questionDiv = document.createElement("div");
 questionDiv.id = `q-${q.id}`;
-questionDiv.textContent = q.text;
 questionDiv.dataset.property = q.property; //זו הדרך להוסיף עוד דברים לאוביקט
-questionDiv.classList.add("question-item");
 questionDiv.addEventListener("click", () => {
   checkAnswer(q.property, questionDiv);//אני שולחת גם את הדיב שיצרתי כדי לצבוע שאלה שכבר שאלו
 });
+
+if (q.type === "color") {
+    questionDiv.classList.add("color-circle-item");
+questionDiv.style.backgroundColor = q.colorCode;   //אין לי אופציה לעשות את העיצוב ב CSS כי כל עיגול צבע שונה לפי הערך שלו כביכול
+document.getElementById("hair-colors-container").appendChild(questionDiv);
+}
+else {
+questionDiv.textContent = q.text;
+questionDiv.classList.add("question-item");
 selectors.questions.appendChild(questionDiv);
+}
+
 });
 }
 

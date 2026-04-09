@@ -29,5 +29,12 @@ export const questions = [
     { id: 6, text: "Is there a hair decoration? 🎀", property: "hasHairDecoration" },
     { id: 7, text: "Is he bearded? 🧔", property: "isBearded" },
     { id: 8, text: "Is the hair curly? 👨‍🦱", property: "isCurlyHair" },
-    { id: 9, text: "Does he wear glasses? 👓", property: "hasGlasses" }
+    { id: 9, text: "Does he wear glasses? 👓", property: "hasGlasses" },
+
+    // השאלות החדשות - שימי לב לתוספת של type ו-colorCode
+    { id: 10, property: "isBlackHair", type: "color", colorCode: "black" },
+    { id: 11, property: "isBrownHair", type: "color", colorCode: "#4b2c20" },
+    { id: 12, property: "isGinger", type: "color", colorCode: "#ff9900" },
+    { id: 13, property: "isBlonde", type: "color", colorCode: "#faf0be" },
+    { id: 14, property: "isWhiteHair", type: "color", colorCode: "white" }
 ];
