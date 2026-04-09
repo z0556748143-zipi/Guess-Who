@@ -65,39 +65,39 @@ body {
     border: none !important;
 }
 
-
-
-
-
-
-
 /* מוודא שהדמות מאחורה לא דוהה ולא משתנה */
 .eliminated {
     opacity: 1 !important;
     filter: none !important;
 }
 
-/* --- אזור השאלות (שמאל) --- */
+/* --- אזור השאלות והצבעים (שמאל) --- */
+#side-menu {
+    width: 30%;            /* הרחבנו כדי שהטקסט לא יישבר */
+    display: flex;
+    flex-direction: column; 
+    gap: 8px;              /* צמצום רווחים למניעת גלילה */
+}
+
 #questions {
-    width: 25%; 
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;              
 }
 
 .question-item {
+    width: 100%;
     background-color: #ffffff;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 12px;     /* כפתור נמוך יותר */
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    font-size: 15px;       
+    white-space: nowrap;   /* טקסט בשורה אחת בלבד */
 }
 
 .question-item:hover {
     background-color: #f0f0f0;
-    transform: translateX(-5px);
 }
 
 .question-asked {
@@ -105,6 +105,29 @@ body {
     color: #888;
     pointer-events: none;
     text-decoration: line-through;
+}
+
+.hair-title {
+    margin-top: 15px;      
+    margin-bottom: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #333;
+}
+
+#hair-colors-container {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.color-circle-item {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
 }
 
 /* --- מודל סיום משחק --- */
@@ -128,7 +151,6 @@ body {
     border: 6px solid #ff4500;
 }
 
-/* הגבלת התמונה במודל הסיום */
 #revealedPersonContainer img {
     width: 150px !important;
     height: 150px !important;
