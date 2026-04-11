@@ -13,6 +13,9 @@ const selectors = {
     modalName: document.querySelector("#nameOfSpesificTitle"),
     modalNameContainer: document.querySelector("#nameOfSpesific")
 };
+const winSound = new Audio('../audio/win.mp3');
+const loseSound = new Audio('../audio/lose.mp3');
+
 
  const renderPeople = () => {
     for(const personn of peopleToGuess){
@@ -77,13 +80,14 @@ if (level != null){
  */
 const handleGameOver = (isWin=null) => {
     // 1. עצירת השעון (שימוש ב-BOM ובתזמון פונקציות) [cite: 25, 27]
-
     clearInterval(timerInterval);
 
     const modalTitle = document.querySelector("#modalTitle");
     if (isWin === true) {
+        winSound.play();
         modalTitle.textContent = "🏆 YOU WIN! 🏆";
     } else if (isWin === false) {
+        loseSound.play();
         modalTitle.textContent = "❌ WRONG GUESS! ❌";  
     }
     else {
