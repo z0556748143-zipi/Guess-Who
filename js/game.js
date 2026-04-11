@@ -110,8 +110,8 @@ const handleGameOver = (isWin=null) => {
      */
     setTimeout(() => {
         // שימוש ב-BOM למעבר דף [cite: 25]
-        const userName = sessionStorage.getItem('username');
-        window.location.href = `siim.html?username=${userName}`;
+        const name = sessionStorage.getItem('username');
+        window.location.href = `siim.html?name=${name}&time=${secondsElapsed}&win=${isWin}`;
 }, 4000);
 };
 

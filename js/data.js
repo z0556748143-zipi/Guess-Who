@@ -1,20 +1,23 @@
 
 export const peopleToGuess = [
-    {id: Date.now(),name:"yankale",image:"../img/image (1).png",isMale:true,hasGlass:false,hasHat:false,
+    {name:"yankale",image:"../img/image (1).png",isMale:true,hasGlass:false,hasHat:false,
         hasBeard:true,  hasPacifier:true
     },
-    {id: Date.now()+1,name:"yair lev",image:"../img/image (2).png",isMale:true,hasGlass:false,hasHat:false,
+    {name:"yair lev",image:"../img/image (2).png",isMale:true,hasGlass:false,hasHat:false,
         hasBeard:false,  hasPacifier:false
     },
-    {id: Date.now()+2,name:"Chaim ben Chaim",image:"../img/image (3).png",isMale:true,hasGlass:false,
+    {name:"Chaim ben Chaim",image:"../img/image (3).png",isMale:true,hasGlass:false,
     hasHat:true,   hasBeard:true,  hasPacifier:false
     },
-    {id: Date.now()+2,name:"Moishi Lando",image:"../img/image (4).png",isMale:true,hasGlass:false,
+    {name:"Moishi Lando",image:"../img/image (4).png",isMale:true,hasGlass:false,
     hasHat:false,   hasBeard:false,  hasPacifier:true
-    },
+    }
 
 
 ];
+peopleToGuess.forEach((person, i)=>{
+ person.id=i+1;  //אני משתמשת ב איי ועוד 1 כדי שאם אשאל שאלה על זה לא תיווצר לי פולס
+})
 
 let num= Math.floor(Math.random() * peopleToGuess.length);
 export const personToGuess=peopleToGuess[num];

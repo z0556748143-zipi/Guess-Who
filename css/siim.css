@@ -1,0 +1,88 @@
+/* --- עיצוב דף השיאים (siim.css) --- */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #2c3e50;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* 1. המיכל הראשי - מסדר את הריבועים בשורות */
+#highscores-container {
+    display: flex;
+    flex-wrap: wrap;        /* מאפשר לריבועים לרדת שורה כשאין מקום */
+    gap: 25px;              /* רווח שווה בין הריבועים */
+    justify-content: center; /* ממרכז את הריבועים בדף */
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 2. עיצוב כרטיס השיא (הריבוע) */
+.person-box {
+    width: 180px;
+    height: 120px;
+    background: white;
+    border: 2px solid #3498db;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    /* מירכוז הטקסט בתוך הריבוע */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* פונטים וצבעים */
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #34495e;
+    text-align: center;
+    padding: 10px;
+    
+    /* מעברים חלקים לאפקטים */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* 3. אפקט מעבר עכבר (mouseover) - סוגר לך דרישה במחוון! */
+.person-box:hover {
+    transform: translateY(-5px) scale(1.05); /* הריבוע עולה קצת למעלה */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    border-color: #2ecc71; /* משנה צבע לירוק ב-hover */
+    background-color: #f0fff4;
+}
+
+/* 4. בונוס: עיצוב מיוחד למקום הראשון (המדליה של הדף) */
+.person-box:first-child {
+    border: 3px solid #f1c40f; /* צבע זהב */
+    background: linear-gradient(135deg, #ffffff 0%, #fff9e6 100%);
+    position: relative;
+    transform: scale(1.1); /* הופך את המקום הראשון לקצת יותר גדול */
+    margin-right: 10px;
+}
+
+/* הוספת אייקון כתר קטן למקום הראשון דרך ה-CSS */
+.person-box:first-child::before {
+    content: "👑";
+    position: absolute;
+    top: -20px;
+    font-size: 1.5rem;
+}
+
+/* עיצוב להודעה כשאין שיאים עדיין */
+#highscores-container:empty::after {
+    content: "No scores yet. Be the first to win!";
+    font-style: italic;
+    color: #95a5a6;
+    margin-top: 50px;
+}
