@@ -158,3 +158,43 @@ body {
     object-fit: cover;
     margin: 15px 0;
 }
+
+
+/* --- העיצוב של הטיימר-- */
+/* עיצוב הקפסולה של השעון */
+#timer-container {
+    background-color: #333;
+    color: #2ecc71; /* ירוק בהתחלה */
+    padding: 8px 18px;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: 2px solid #444;
+    transition: all 0.3s ease; /* מעבר חלק בין צבעים */
+    position: fixed; /* מקבע אותו למקום מסוים אם תרצי */
+    top: 20px;
+    left: 20px;
+}
+
+.unit {
+    font-size: 14px;
+    color: #888;
+}
+
+/* האנימציה שתופעל כשהזמן עומד להיגמר */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.danger-zone {
+    animation: pulse 0.5s infinite;
+    color: #e74c3c !important; /* הופך לאדום */
+    border-color: #e74c3c !important;
+}

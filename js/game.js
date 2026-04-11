@@ -3,6 +3,7 @@ const selectors = {
     containerr: document.querySelector("#container"),
  //   rand: document.querySelector("#randerImg"),
     timer: document.querySelector("#seconds"),
+    timerContainer: document.querySelector("#timer-container"),
 
     modal: document.querySelector("#endGameModal"),
     modalTime: document.querySelector("#modalTimeText"),
@@ -54,9 +55,15 @@ if (level === '2') {
  */
 const updateClock = () => {
     secondsElapsed++;
-    selectors.timer.textContent = `Time: ${secondsElapsed} seconds`;
+    selectors.timer.textContent = secondsElapsed;
+if (secondsElapsed > maxSeconds * 0.8) {
+        // הוספת מחלקה שמשנה את ה-CSS (צבע ואנימציה)
+        selectors.timerContainer.classList.add("danger-zone");
+    }
+
 if (secondsElapsed == maxSeconds) {
         // 2. הפעלת הלוגיקה של סיום המשחק
+        clearInterval(timerInterval); // עצירת השעון
         handleGameOver();
 }
 }
