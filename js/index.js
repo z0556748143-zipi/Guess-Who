@@ -17,3 +17,15 @@ selectors.form.addEventListener('submit', function(event) {
     sessionStorage.setItem('tz', tz); // שומר את תעודת הזהות ב-Session Storage
 });
 
+/**
+ * Handles keydown events on the username field to prevent invalid input.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
+selectors.username.addEventListener('keydown',(event) => {
+    const allowedChars = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZאבגדהוזחטיכלמםנןסעףפץצקרשת'.split('');
+    const functionalKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab', 'Delete'];
+ if (!allowedChars.includes(event.key) && !functionalKeys.includes(event.key)){
+    event.preventDefault(); 
+ }
+})
+

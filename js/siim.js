@@ -1,5 +1,6 @@
 const selectors = {
-    questionsContainer: document.querySelector("#highscores-container")
+    questionsContainer: document.querySelector("#highscores-container"),
+    printBtn: document.querySelector("#print-btn")
 };
 const initHighScores = () => {
     //  חילוץ הנתונים מהכתובת
@@ -34,5 +35,13 @@ card.textContent = `#${index + 1} | ${score.name} - ${score.time}s`;
 selectors.questionsContainer.appendChild(card);
  })
 }
-
 initHighScores();
+
+/**
+ * Handles the print button click event.
+ * @param {Event} event - The click event object.
+ * @description Triggers the browser's native print dialog for the current document.
+ */
+selectors.printBtn.addEventListener('click', () => {
+    window.print();
+});
