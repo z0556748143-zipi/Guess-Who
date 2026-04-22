@@ -13,9 +13,6 @@ const selectors = {
     modalName: document.querySelector("#nameOfSpesificTitle"),
     modalNameContainer: document.querySelector("#nameOfSpesific")
 };
-const winSound = new Audio('../audio/win.mp3');
-const loseSound = new Audio('../audio/lose.mp3');
-
 
  const renderPeople = () => {
     for(const personn of peopleToGuess){
@@ -32,7 +29,7 @@ selectors.containerr.appendChild(personBox);
 personBox.addEventListener("click",(e)=>{
 // אם כבר יש עליה איקס, אי אפשר לבחור בה
     if (personBox.classList.contains("eliminated")) return;
-    const isWin = personn.id === personToGuess.id;
+    const isWin = personn.id === personToGuess.id && countMistakes > 0; //  יהיה נצחון למשחק אם גם זמן טוב וגם כמה טעויות לא נגמרה
     handleGameOver(isWin);
 })
 
@@ -41,18 +38,22 @@ renderPeople();
 /** * @type {number} - מזהה האינטרוול של השעון, משמש לעצירת השעון בסיום המשחק
  */
 let timerInterval;
-
-/** @type {number} - כמות השניות שעברו מתחילת המשחק */
+/**  כמות השניות שעברו למי ששחק מתחילת המשחק */
 let secondsElapsed = 0;
-
-/** @type {number} - זמן המקסימום למשחק (משתנה לפי רמת הקושי) */
+let countMistakes = 5; // מספר הטעויות המותרות לפני הפסד אוטומטי 
+/**   זמן המקסימום למשחק (משתנה לפי רמת הקושי) */
 let maxSeconds = 10;
 
+const differentBetweenLevels = () => {
 const urlParams = new URLSearchParams(window.location.search);
 const level = urlParams.get('game'); // זה מחלץ את המספר שמופיע אחרי ה- ?game=
 if (level === '2') {
-     maxSeconds = 5;
+      maxSeconds = 5;
+    countMistakes = 2;
+     }
 }
+
+
 /**
  * @description פונקציה שמעדכנת את השעון כל שנייה ומטפלת בסיום המשחק כאשר הזמן מגיע למקסימום
  */
@@ -64,11 +65,11 @@ if (secondsElapsed > maxSeconds * 0.8) {
         selectors.timerContainer.classList.add("danger-zone");
     }
 
-if (secondsElapsed == maxSeconds) {
+if (secondsElapsed == maxSeconds || countMistakes == 0) {
         // 2. הפעלת הלוגיקה של סיום המשחק
         clearInterval(timerInterval); // עצירת השעון
         handleGameOver();
-}
+                }
 }
 if (level != null){
      timerInterval = setInterval(updateClock, 1000);
@@ -79,6 +80,8 @@ if (level != null){
  * @returns {void}
  */
 const handleGameOver = (isWin=null) => {
+    const winSound = new Audio('../audio/win.mp3');
+const loseSound = new Audio('../audio/lose.mp3');
     // 1. עצירת השעון (שימוש ב-BOM ובתזמון פונקציות) [cite: 25, 27]
     clearInterval(timerInterval);
 
