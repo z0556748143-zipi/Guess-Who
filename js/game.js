@@ -43,7 +43,9 @@ let secondsElapsed = 0;
 let countMistakes = 5; // מספר הטעויות המותרות לפני הפסד אוטומטי 
 /**   זמן המקסימום למשחק (משתנה לפי רמת הקושי) */
 let maxSeconds = 10;
-
+/**
+ * @description different values for each level of the game, based on URL parameter.
+ */
 const differentBetweenLevels = () => {
 const urlParams = new URLSearchParams(window.location.search);
 const level = urlParams.get('game'); // זה מחלץ את המספר שמופיע אחרי ה- ?game=
@@ -94,8 +96,8 @@ const loseSound = new Audio('../audio/lose.mp3');
         modalTitle.textContent = "❌ WRONG GUESS! ❌";  
     }
     else {
-        modalTitle.textContent = "⏰ TIME IS UP! ⏰";}  
-    // 2. עדכון טקסט הזמן במודל בצורה בטוחה (textContent במקום innerHTML) [cite: 20, 46]
+        modalTitle.textContent = "⏰ TIME IS UP! ⏰ OR TOO MANY MISTAKES 😐";}  
+    
     selectors.modalTime.textContent = `Finished in ${secondsElapsed} seconds!`;
 
     // 3. ניקוי תוכן קודם מהמכולה לפני הזרקת דמויות חדשות 
