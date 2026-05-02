@@ -42,10 +42,10 @@ document.querySelector('#closeModal').addEventListener('click', () => {
 });
 
 document.querySelector('#game1').addEventListener('click',()=>{
-   location.href =`../html/game.html?game=1`; 
+   location.href =`html/game.html?game=1`; 
 })
 document.querySelector('#game2').addEventListener('click',()=>{
-   location.href =`../html/game.html?game=2`; 
+   location.href =`html/game.html?game=2`; 
 })
 
 
