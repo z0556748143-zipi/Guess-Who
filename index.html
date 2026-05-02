@@ -3,17 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZIPI GAMES</title>
+    <title>Guess Who</title>
+     <link rel="stylesheet" href="/css/index.css">
     <link rel="icon" type="image" href="favicon.png">
     <script src="js/index.js" defer></script>
 </head>
 <body>
     <form id="login-form">
-        <h1>Wellcome to ZIPI GAMES</h1>
-        <input type="text" id="username" placeholder="Player Name" required>
-        <input type="password" id="tz" placeholder="ID Number" required>
+        <h1>Welcome to Guess Who</h1>
+        <input type="text" id="username" placeholder="Player Name">
         <button type="submit">Login</button>
     </form>
-<a href ="html/home.html">Guess Who</a>
+<div class="logo-animation-container">
+    <div id="dancingQuestionMark">?</div>
+    <div id="dancingTitle">GUESS WHO</div>
+</div>
+
+
+    <button id="instructions">Instructions</button>
+
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <h3>Instructions how to play Guess Who</h3>
+            <p>
+                <ul>
+                <li><b>Get Started:</b> Enter your name and choose your difficulty level.</li>
+    <li><b>The Mission:</b> Identify the secret character by asking smart questions.</li>
+    <li><b>Use Clues Wisely:</b> Use the "Hint" button for the best strategic question.</li>
+    <li><b>Stay Relevant:</b> Irrelevant questions will cost you a mistake point!</li>
+    <li><b>Win the Game:</b> Finish before time runs out to reach the leaderboard.</li>
+</ul>
+Created by Zipi Levin. All rights reserved ©
+</p>
+            <button id="closeModal">❌</button>
+        </div>
+    </div>
+
+    <button id="game1">Start Game first level</button>
+    <button id="game2">Start Game higher level</button>
+
+
 </body>
 </html>

@@ -1,0 +1,201 @@
+/* --- עיצוב כללי ורקע --- */
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    text-align: center;
+    padding-top: 50px;
+    margin: 0;
+    color: #444;
+    background-image: url('../img/background.png'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* --- תיבת הזנת שם (Player Name) --- */
+input[type="text"] {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 50px; /* מעוגל כמו הכפתורים */
+    outline: none;
+    transition: all 0.3s ease;
+    width: 250px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+input[type="text"]:focus {
+    border-color: #ff008c; /* צבע סימן השאלה */
+    box-shadow: 0 4px 20px rgba(255, 0, 140, 0.2);
+}
+
+/* --- עיצוב כפתורים משופר ומושך --- */
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+    border: none;
+    border-radius: 50px; /* מראה עגול ומודרני */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* כפתור לוגין */
+button[type="submit"], .login-btn {
+    background: linear-gradient(135deg, #ff008c 0%, #ff66b2 100%);
+    color: white;
+}
+
+/* כפתורי המשחק */
+.game-btn {
+    background: linear-gradient(135deg, #3498db 0%, #5dade2 100%);
+    color: white;
+}
+
+/* כפתור הוראות */
+.instr-btn {
+    background: #f8f9fa;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* --- לוגו ואנימציה מעוגלת (נשאר כפי שאהבת) --- */
+.logo-animation-container {
+    position: absolute;
+    top: 50px;
+    left: 80px; 
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition: all 0.5s ease;
+}
+
+#dancingQuestionMark {
+    font-size: 100px;
+    font-weight: bold;
+    color: #ff008c; 
+    position: absolute;
+    z-index: 1;
+    animation: simpleAcrobatic 4s ease-in-out infinite;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+#dancingTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 10px; 
+    position: absolute;
+    white-space: nowrap;
+    transform-origin: center -90px; 
+    margin-top: 180px; 
+    animation: walkAroundCircle 12s linear infinite;
+}
+
+/* --- אנימציות --- */
+@keyframes simpleAcrobatic {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(8deg); }
+}
+
+@keyframes walkAroundCircle {
+    0% { transform: rotate(0deg) skewX(0deg); }
+    25% { transform: rotate(90deg) skewX(10deg); }
+    50% { transform: rotate(180deg) skewX(0deg); }
+    75% { transform: rotate(270deg) skewX(-10deg); }
+    100% { transform: rotate(360deg) skewX(0deg); }
+}
+
+/* --- רספונסיביות --- */
+@media (max-width: 850px) {
+    .logo-animation-container {
+        top: 10px;
+        left: 10px;
+        transform: scale(0.6);
+    }
+    h1 {
+        font-size: 2.2rem;
+        margin-top: 100px;
+    }
+    input[type="text"] {
+        width: 80%;
+    }
+}
+
+@media (max-width: 500px) {
+    .logo-animation-container {
+        position: relative;
+        margin: 0 auto 20px auto;
+        left: 0;
+        top: 0;
+        transform: scale(0.5);
+    }
+    h1 {
+        margin-top: 20px;
+        font-size: 1.8rem;
+    }
+    button {
+        width: 90%;
+        padding: 12px;
+    }
+}
+
+/* --- מודל --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 35px;
+    border-radius: 25px;
+    width: 85%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+    text-align: left;
+}
+
+#closeModal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}

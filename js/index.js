@@ -1,7 +1,5 @@
 const selectors = {
-form: document.querySelector('#login-form'),
-username: document.querySelector('#username'),
-tz: document.querySelector('#tz')
+username: document.querySelector('#username')
 };
 
 /**
@@ -9,12 +7,10 @@ tz: document.querySelector('#tz')
  * @param {SubmitEvent} event - אובייקט האירוע של שליחת הטופס
  * @returns {void}
  */
-selectors.form.addEventListener('submit', function(event) {
+document.querySelector('#login-form').addEventListener('submit', function(event) {
     event.preventDefault(); // מונע את שליחת הטופס והטענת הדף מחדש
     const username = selectors.username.value.trim();
-    const tz = selectors.tz.value.trim();
     sessionStorage.setItem('username', username); // שומר את שם המשתמש ב-Session Storage
-    sessionStorage.setItem('tz', tz); // שומר את תעודת הזהות ב-Session Storage
 });
 
 /**
@@ -28,4 +24,37 @@ selectors.username.addEventListener('keydown',(event) => {
     event.preventDefault(); 
  }
 })
+
+
+// ************************************************
+
+/**
+ * @description open the modal of instructions
+ */
+document.querySelector('#instructions').addEventListener('click', () => {
+    document.querySelector('#instructionsModal').style.display = 'block'; 
+});
+/**
+ * @description close the modal of instructions
+ */
+document.querySelector('#closeModal').addEventListener('click', () => {
+    document.querySelector('#instructionsModal').style.display = 'none';
+});
+
+document.querySelector('#game1').addEventListener('click',()=>{
+   location.href =`../html/game.html?game=1`; 
+})
+document.querySelector('#game2').addEventListener('click',()=>{
+   location.href =`../html/game.html?game=2`; 
+})
+
+
+
+
+
+
+
+
+
+
 

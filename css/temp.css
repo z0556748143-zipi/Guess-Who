@@ -15,16 +15,15 @@ body {
     min-height: 100vh;
 }
 
-/* --- כפתור הבית - בגווני זהב --- */
+/* --- עיצוב כפתור הבית (צד שמאל למעלה) --- */
 #backButton {
     position: fixed;
     top: 20px;
     left: 20px;
-    /* גרדיאנט מוזהב */
-    background: linear-gradient(135deg, #f1c40f 0%, #d4af37 100%);
-    color: #2c3e50; /* טקסט כהה שיהיה קריא על הזהב */
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
     border: 2px solid #fff;
-    padding: 20px 30px;
+    padding: 10px 20px;
     border-radius: 50px;
     font-weight: bold;
     cursor: pointer;
@@ -35,8 +34,8 @@ body {
 
 #backButton:hover {
     transform: scale(1.1);
-    background: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
 
 #backButton:active {
@@ -58,7 +57,7 @@ h1 {
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
-    margin-bottom: 40px;
+    margin-bottom: 40px; /* רווח לכפתור ההדפסה למטה */
 }
 
 /* 2. עיצוב כרטיס השיא (הריבוע) */
@@ -89,7 +88,6 @@ h1 {
     background-color: #fffdf0;
 }
 
-/* 4. עיצוב למקום הראשון */
 .person-box:first-child {
     border: 3px solid #f1c40f;
     background: linear-gradient(135deg, #ffffff 0%, #fff9e6 100%);
@@ -105,9 +103,9 @@ h1 {
     font-size: 1.5rem;
 }
 
-/* --- כפתור ההדפסה - בגווני זהב תואמים --- */
+/* --- עיצוב כפתור ההדפסה (למטה) --- */
 #print-btn {
-    background: linear-gradient(135deg, #f39c12, #e67e22);
+    background-color: #2c3e50;
     color: white;
     border: none;
     padding: 12px 30px;
@@ -121,16 +119,16 @@ h1 {
 }
 
 #print-btn:hover {
-    background: linear-gradient(135deg, #e67e22, #f39c12);
+    background-color: #34495e;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(230, 126, 34, 0.3);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 #print-btn:active {
     transform: scale(0.98);
 }
 
-/* הודעה כשאין שיאים */
+/* עיצוב להודעה כשאין שיאים עדיין */
 #highscores-container:empty::after {
     content: "No scores yet. Be the first to win!";
     font-style: italic;
@@ -138,7 +136,7 @@ h1 {
     margin-top: 50px;
 }
 
-/* הסתרת אלמנטים בהדפסה */
+/* הסתרת כפתורים בזמן הדפסה */
 @media print {
     #backButton, #print-btn {
         display: none;

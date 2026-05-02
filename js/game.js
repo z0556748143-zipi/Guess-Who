@@ -1,31 +1,21 @@
 import { peopleToGuess,personToGuess,questions } from "./data.js";
-const selectors = {
-    containerr: document.querySelector("#container"),
- //   rand: document.querySelector("#randerImg"),
-    timer: document.querySelector("#seconds"),
-    timerContainer: document.querySelector("#timer-container"),
 
-    modal: document.querySelector("#endGameModal"),
-    modalTime: document.querySelector("#modalTimeText"),
-    modalImage: document.querySelector("#revealedPersonContainer"),
-    questions: document.querySelector("#questions"),
-
-    modalName: document.querySelector("#nameOfSpesificTitle"),
-    modalNameContainer: document.querySelector("#nameOfSpesific")
-};
 
  const renderPeople = () => {
+    const containerr = document.querySelector("#container")
     for(const personn of peopleToGuess){
 // 1. יוצרים "בית" (דיב) לדמות
         const personBox = document.createElement("div");
         personBox.classList.add("person-box");
+personBox.id = personn.id;
 
 const imagee=document.createElement("img");
 imagee.src=personn.image;
 imagee.id=personn.id;
 imagee.classList.add("person-img");
 personBox.appendChild(imagee);
-selectors.containerr.appendChild(personBox);
+containerr.appendChild(personBox);
+
 personBox.addEventListener("click",(e)=>{
 // אם כבר יש עליה איקס, אי אפשר לבחור בה
     if (personBox.classList.contains("eliminated")) return;
@@ -34,7 +24,7 @@ personBox.addEventListener("click",(e)=>{
 })
 
     }  }
-renderPeople();  
+ 
 /** * @type {number} - מזהה האינטרוול של השעון, משמש לעצירת השעון בסיום המשחק
  */
 let timerInterval;
@@ -42,7 +32,7 @@ let timerInterval;
 let secondsElapsed = 0;
 let countMistakes = 5; // מספר הטעויות המותרות לפני הפסד אוטומטי 
 /**   זמן המקסימום למשחק (משתנה לפי רמת הקושי) */
-let maxSeconds = 10;
+let maxSeconds = 30;
 /**
  * @description different values for each level of the game, based on URL parameter.
  */
@@ -53,6 +43,7 @@ if (level === '2') {
       maxSeconds = 5;
     countMistakes = 2;
      }
+     return level;
 }
 
 
@@ -60,48 +51,57 @@ if (level === '2') {
  * @description פונקציה שמעדכנת את השעון כל שנייה ומטפלת בסיום המשחק כאשר הזמן מגיע למקסימום
  */
 const updateClock = () => {
+    const timer = document.querySelector("#seconds");
+const timerContainer = document.querySelector("#timer-container");
     secondsElapsed++;
-    selectors.timer.textContent = secondsElapsed;
+    timer.textContent = secondsElapsed;
 if (secondsElapsed > maxSeconds * 0.8) {
         // הוספת מחלקה שמשנה את ה-CSS (צבע ואנימציה)
-        selectors.timerContainer.classList.add("danger-zone");
+        timerContainer.classList.add("danger-zone");
     }
 
-if (secondsElapsed == maxSeconds || countMistakes == 0) {
+if (secondsElapsed == maxSeconds ) {
         // 2. הפעלת הלוגיקה של סיום המשחק
         clearInterval(timerInterval); // עצירת השעון
         handleGameOver();
                 }
 }
-if (level != null){
-     timerInterval = setInterval(updateClock, 1000);
-}
+
 
 /**
  * @description פונקציה המטפלת בסיום המשחק - עוצרת את השעון, מציגה מודל ומעבירה לדף שיאים
  * @returns {void}
  */
 const handleGameOver = (isWin=null) => {
+    const modal = document.querySelector("#endGameModal");
+const modalTime = document.querySelector("#modalTimeText");
+const modalImage = document.querySelector("#revealedPersonContainer");
+
     const winSound = new Audio('../audio/win.mp3');
 const loseSound = new Audio('../audio/lose.mp3');
     // 1. עצירת השעון (שימוש ב-BOM ובתזמון פונקציות) [cite: 25, 27]
     clearInterval(timerInterval);
+const clueeButton = document.querySelector("#clueButton");
+    if (clueButton) {
+        clueButton.style.display = "none";
+    }
 
+    const playerName = sessionStorage.getItem('username') || "Player";
     const modalTitle = document.querySelector("#modalTitle");
     if (isWin === true) {
         winSound.play();
-        modalTitle.textContent = "🏆 YOU WIN! 🏆";
+        modalTitle.textContent = `🏆 ${playerName}, YOU WIN! 🏆`;
     } else if (isWin === false) {
         loseSound.play();
-        modalTitle.textContent = "❌ WRONG GUESS! ❌";  
+        modalTitle.textContent = `❌ ${playerName}, WRONG GUESS! ❌ OR TOO MANY MISTAKES 😐`;  
     }
     else {
-        modalTitle.textContent = "⏰ TIME IS UP! ⏰ OR TOO MANY MISTAKES 😐";}  
+        modalTitle.textContent = `⏰ ${playerName}, TIME IS UP! ⏰`}  
     
-    selectors.modalTime.textContent = `Finished in ${secondsElapsed} seconds!`;
+    modalTime.textContent = `Finished in ${secondsElapsed} seconds! and with ${countMistakes} mistakes left!`;
 
     // 3. ניקוי תוכן קודם מהמכולה לפני הזרקת דמויות חדשות 
-    selectors.modalImage.textContent = "";
+    modalImage.textContent = "";
 
     // 4. יצירה דינמית של אלמנט התמונה (DOM Manipulation) 
     const revealedImg = document.createElement("img");
@@ -114,11 +114,11 @@ const loseSound = new Audio('../audio/lose.mp3');
     nameLabel.textContent = `that was: ${personToGuess.name}`;
 
     // 6. הוספת האלמנטים למודל (הוספת בנים) [cite: 17]
-    selectors.modalImage.appendChild(revealedImg);
-    selectors.modalImage.appendChild(nameLabel);
+    modalImage.appendChild(revealedImg);
+    modalImage.appendChild(nameLabel);
 
     // 7. הצגת המודל על ידי שינוי הסטייל (הפיכה ל-flex)
-    selectors.modal.style.display = "flex";
+    modal.style.display = "flex";
 
     /**
      * שימוש ב-setTimeout למעבר דף אוטומטי [cite: 27]
@@ -127,7 +127,7 @@ const loseSound = new Audio('../audio/lose.mp3');
     setTimeout(() => {
         // שימוש ב-BOM למעבר דף [cite: 25]
         const name = sessionStorage.getItem('username');
-        window.location.href = `siim.html?name=${name}&time=${secondsElapsed}&win=${isWin}`;
+        window.location.href = `highscores.html?name=${name}&time=${secondsElapsed}&win=${isWin}`;
 }, 4000);
 };
 
@@ -137,10 +137,12 @@ const loseSound = new Audio('../audio/lose.mp3');
  * @returns {void}
  */
 const renderQuestions = () => {
+    const questionsContainer = document.querySelector("#questions");
 questions.forEach((q) => {
 const questionDiv = document.createElement("div");
 questionDiv.id = `q-${q.id}`;
 questionDiv.dataset.property = q.property; //זו הדרך להוסיף עוד דברים לאוביקט
+
 questionDiv.addEventListener("click", () => {
   checkAnswer(q.property, questionDiv);//אני שולחת גם את הדיב שיצרתי כדי לצבוע שאלה שכבר שאלו
 });
@@ -153,13 +155,11 @@ document.getElementById("hair-colors-container").appendChild(questionDiv);
 else {
 questionDiv.textContent = q.text;
 questionDiv.classList.add("question-item");
-selectors.questions.appendChild(questionDiv);
+questionsContainer.appendChild(questionDiv);
 }
-
 });
 }
 
-renderQuestions();
 
 /**
  * Description: This function checks if the selected property matches the hidden person's
@@ -170,11 +170,40 @@ renderQuestions();
 const checkAnswer = (property, questionDiv) => {
   const isCorrect = personToGuess[property];//זה בעצם אומר לי מה יש אצל הדמות
   questionDiv.classList.add("question-asked");
+// 1. אוספים את כל הדיבים של הדמויות מהמסך
+const allBoxes = document.querySelectorAll(".person-box");
+let countCorrect = 0,countNot = 0;
+
+allBoxes.forEach((box) => {
+// פה לוקחים את הדיבים שאין עליהם איקס
+    const isStillInGame = !box.classList.contains("eliminated");
+    if (isStillInGame) {
+       //מוצאים את הדמות ע"י ID
+        const personData = peopleToGuess.find(p => p.id == box.id);
+if (personData && personData[property] === true) {
+ countCorrect++;
+            }
+        else {
+            countNot++;
+        }
+    }
+});
+
+if (countCorrect ===0 || countNot === 0) {
+    countMistakes--; //אם אין אף אחד עם התכונה הזאת או שכולם איתה אז טפשי לשאול את השאלה
+}
+if (countMistakes === 0) {
+    handleGameOver(false);
+    return;
+}
 const allImages = document.querySelectorAll(".person-img");
 allImages.forEach((img) => {
   treatOneCharacter(img, property, isCorrect);
 });
+
 }
+
+
 /**
  * Description: Marks a single character with an X if it doesn't match the correct attribute.
  * @param {HTMLImageElement} img 
@@ -197,4 +226,66 @@ if (characterData && characterData[property] !== isCorrect && !alreadyEliminated
 }
 }
 
+const clueBtn = document.querySelector("#clueButton");
+clueBtn.addEventListener("mouseenter", () => {
+    clueBtn.style.backgroundColor = "#ff2dc3"; 
+});
+clueBtn.addEventListener("mouseleave", () => { 
+    clueBtn.style.backgroundColor = ""; 
+});
+clueBtn.addEventListener("click", () => {
+    console.log("Button clicked!");
+    let countMatch = 0, countNot = 0, best=peopleToGuess.length+1, bestQuestion=null;
+const allBoxes = document.querySelectorAll(".person-box");
 
+for(const q of questions){  
+
+const thisOne=document.querySelector(`#q-${q.id}`);//תחפש את הדמות על המסך שלי
+if (!thisOne || thisOne.classList.contains("question-asked")) continue;//שאלתי כבר את השאלה הזו
+countMatch = 0, countNot = 0;
+for(const p of peopleToGuess){
+    const box = document.getElementById(p.id);
+
+    const isStillInGame = !box.classList.contains("eliminated");//אין לו עדין איקס
+            if (isStillInGame) {
+        if(p[q.property]===true)
+            countMatch++;
+        else 
+            countNot++;
+         }
+}
+if (Math.abs(countMatch-countNot) < best){
+    best = Math.abs(countMatch-countNot);
+    bestQuestion = q;
+}
+countNot = 0, countMatch = 0;
+}
+if (bestQuestion) {
+        const modal = document.querySelector("#hint-modal");
+        const textSpan = document.querySelector("#hint-text");
+        // 1. כותבים את הטקסט
+       // textSpan.textContent = `Best question to ask: ${bestQuestion.text}`;
+
+       const displayHint = bestQuestion.text ? bestQuestion.text : `Is the hair color ${bestQuestion.property}?`;
+textSpan.textContent = `Best question to ask: ${displayHint}`;
+        // 2. מראים את המודל (מוסיפים את הקלאס מה-CSS)
+        modal.classList.add("show-hint");
+        // 3. מעלימים אחרי 3 שניות
+        setTimeout(() => {
+            modal.classList.remove("show-hint");
+        }, 2000);
+                }
+
+});
+
+
+const managerOfTheGame = () => {
+const levell= differentBetweenLevels();
+renderPeople(); 
+renderQuestions();
+if (levell != null){
+     timerInterval = setInterval(updateClock, 1000);
+}
+}
+
+managerOfTheGame();
