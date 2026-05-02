@@ -127,7 +127,7 @@ const clueeButton = document.querySelector("#clueButton");
     setTimeout(() => {
         // שימוש ב-BOM למעבר דף [cite: 25]
         const name = sessionStorage.getItem('username');
-        window.location.href = `highscores.html?name=${name}&time=${secondsElapsed}&win=${isWin}`;
+        window.location.href = `highScores.html?name=${name}&time=${secondsElapsed}&win=${isWin}`;
 }, 4000);
 };
 
