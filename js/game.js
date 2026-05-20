@@ -81,7 +81,7 @@ const modalImage = document.querySelector("#revealedPersonContainer");
 const loseSound = new Audio('../audio/lose.mp3');
     // 1. עצירת השעון (שימוש ב-BOM ובתזמון פונקציות) [cite: 25, 27]
     clearInterval(timerInterval);
-const clueeButton = document.querySelector("#clueButton");
+const clueuButton = document.querySelector("#clueButton");
     if (clueButton) {
         clueButton.style.display = "none";
     }
@@ -103,11 +103,11 @@ const clueeButton = document.querySelector("#clueButton");
     // 3. ניקוי תוכן קודם מהמכולה לפני הזרקת דמויות חדשות 
     modalImage.textContent = "";
 
-    // 4. יצירה דינמית של אלמנט התמונה (DOM Manipulation) 
+    // 4. יצירה דינמית של אלמנט התמונה  
     const revealedImg = document.createElement("img");
-    revealedImg.src = personToGuess.image; // שינוי מאפיין src [cite: 21]
+    revealedImg.src = personToGuess.image; // שינוי מאפיין 
     revealedImg.alt = personToGuess.name;
-    revealedImg.id = "end-game-photo"; // שינוי מאפיין id [cite: 21]
+    revealedImg.id = "end-game-photo"; // שינוי מאפיין id
     
     // 5. יצירת אלמנט כותרת לשם הדמות 
     const nameLabel = document.createElement("h3");
@@ -121,14 +121,14 @@ const clueeButton = document.querySelector("#clueButton");
     modal.style.display = "flex";
 
     /**
-     * שימוש ב-setTimeout למעבר דף אוטומטי [cite: 27]
-     * העברת מידע בין דפים תתבצע בהמשך (למשל שמירה ב-localStorage) [cite: 29]
+     * שימוש ב-setTimeout למעבר דף אוטומטי 
+     * העברת מידע בין דפים תתבצע בהמשך (למשל שמירה ב-localStorage) 
      */
     setTimeout(() => {
-        // שימוש ב-BOM למעבר דף [cite: 25]
         const name = sessionStorage.getItem('username');
         window.location.href = `highScores.html?name=${name}&time=${secondsElapsed}&win=${isWin}`;
 }, 4000);
+       
 };
 
 /**
