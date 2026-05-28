@@ -41,11 +41,11 @@ document.querySelector('#closeModal').addEventListener('click', () => {
     document.querySelector('#instructionsModal').style.display = 'none';
 });
 
-document.querySelector('#game1').addEventListener('click',()=>{
-   location.href =`html/mainn.html?game=1`; 
+document.querySelector('#level1').addEventListener('click',()=>{
+   location.href =`html/mainn.html?level=1`; 
 })
-document.querySelector('#game2').addEventListener('click',()=>{
-   location.href =`html/mainn.html?game=2`; 
+document.querySelector('#level2').addEventListener('click',()=>{
+   location.href =`html/mainn.html?level=2`; 
 })
 
 
