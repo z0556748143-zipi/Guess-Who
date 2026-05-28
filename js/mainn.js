@@ -38,7 +38,7 @@ let maxSeconds = 30;
  */
 const differentBetweenLevels = () => {
 const urlParams = new URLSearchParams(window.location.search);
-const level = urlParams.get('game'); // זה מחלץ את המספר שמופיע אחרי ה- ?game=
+const level = urlParams.get('level'); // זה מחלץ את המספר שמופיע אחרי ה- ?level=
 if (level === '2') {
       maxSeconds = 5;
     countMistakes = 2;
